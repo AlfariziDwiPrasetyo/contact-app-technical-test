@@ -34,10 +34,7 @@ export default function CreateContactPage() {
   const { createContact } = useContacts();
 
   const onSubmit = async (data: ContactFormData) => {
-    // Simulate API call
     await createContact(data);
-
-    console.log("Form data:", data);
 
     toast.success("Kontak berhasil disimpan!", {
       description: `${data.nama} telah ditambahkan ke daftar kontak.`,
@@ -51,7 +48,6 @@ export default function CreateContactPage() {
   return (
     <div className="min-h-screen bg-background py-8 px-4">
       <div className="max-w-2xl mx-auto">
-        {/* Header */}
         <div className="mb-8 animate-fade-in">
           <Link
             to="/"
@@ -69,7 +65,6 @@ export default function CreateContactPage() {
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-          {/* Personal Info Section */}
           <div
             className="form-section animate-fade-in"
             style={{ animationDelay: "0.1s" }}
@@ -141,7 +136,7 @@ export default function CreateContactPage() {
             </div>
           </div>
 
-          {/* Photo Section */}
+          {/* Foto */}
           <div
             className="form-section animate-fade-in"
             style={{ animationDelay: "0.2s" }}
@@ -170,7 +165,7 @@ export default function CreateContactPage() {
             )}
           </div>
 
-          {/* Location Section */}
+          {/* Lokasi */}
           <div
             className="form-section animate-fade-in"
             style={{ animationDelay: "0.3s" }}
@@ -195,7 +190,7 @@ export default function CreateContactPage() {
             )}
           </div>
 
-          {/* Submit Button */}
+          {/* Submit  */}
           <div
             className="flex gap-4 pt-4 animate-fade-in"
             style={{ animationDelay: "0.4s" }}

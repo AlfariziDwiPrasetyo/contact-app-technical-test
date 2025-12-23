@@ -37,3 +37,30 @@ export const contactSchema = z.object({
     lng: z.number(),
   }),
 });
+
+export const updateContactSchema = z.object({
+  nama: z.string().min(1).max(100),
+
+  telepon: z
+    .string()
+    .regex(/^[0-9]+$/)
+    .min(10)
+    .max(15),
+
+  email: z.email(),
+
+  fotoProfil: z
+    .instanceof(File)
+    .optional()
+    .refine((file) => !file || file.size <= MAX_FILE_SIZE, {
+      message: "Ukuran file maksimal 1MB",
+    })
+    .refine((file) => !file || ACCEPTED_IMAGE_TYPES.includes(file.type), {
+      message: "Format file harus PNG, JPG, atau JPEG",
+    }),
+
+  lokasi: z.object({
+    lat: z.number(),
+    lng: z.number(),
+  }),
+});

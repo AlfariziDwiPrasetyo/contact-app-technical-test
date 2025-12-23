@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 import { Upload, X, Image as ImageIcon } from "lucide-react";
 import { cn } from "../lib/utils";
 
@@ -6,13 +6,24 @@ interface ImageUploadProps {
   value?: File;
   onChange: (file: File | undefined) => void;
   error?: string;
+  initialPreview?: string | null;
 }
 
-export function ImageUpload({ value, onChange, error }: ImageUploadProps) {
-  const [preview, setPreview] = useState<string | null>(null);
+export function ImageUpload({
+  value,
+  onChange,
+  error,
+  initialPreview,
+}: ImageUploadProps) {
+  const [preview, setPreview] = useState<string | null>(initialPreview || null);
   const [isDragging, setIsDragging] = useState(false);
 
-  //   Callback file
+  useEffect(() => {
+    if (initialPreview && !value) {
+      setPreview(initialPreview);
+    }
+  }, [initialPreview, value]);
+
   const handleFile = useCallback(
     (file: File | undefined) => {
       if (file) {
@@ -77,9 +88,9 @@ export function ImageUpload({ value, onChange, error }: ImageUploadProps) {
             <button
               type="button"
               onClick={handleRemove}
-              className="absolute top-2 right-2 p-1 bg-destructive text-destructive-foreground rounded-full hover:bg-destructive/90 transition-colors shadow-md"
+              className="absolute top-2 right-2 p-1.5 bg-destructive text-destructive-foreground rounded-full hover:bg-destructive/90 transition-colors shadow-md"
             >
-              <X className="h-3 w-3 text-white" />
+              <X className="h-3 w-3" />
             </button>
           </div>
           <p className="text-sm text-muted-foreground mt-2 text-center">

@@ -10,7 +10,7 @@ function App() {
     <AuthProvider>
       <ContactProvider>
         <RouterProvider router={router} />
-        <Toaster richColors position="top-right" />
+        <Toaster theme="light" richColors position="top-right" />
       </ContactProvider>
     </AuthProvider>
   );
