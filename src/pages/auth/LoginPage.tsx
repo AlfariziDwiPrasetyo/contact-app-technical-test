@@ -6,6 +6,8 @@ import { Link, useNavigate } from "react-router-dom";
 import type { LoginFormValues } from "../../features/auth/auth";
 import { loginSchema } from "../../features/auth/auth.schema";
 import { useAuth } from "../../features/auth/auth.context";
+import { toast } from "sonner";
+import { Button } from "../../components/ui/button";
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -29,6 +31,8 @@ export default function LoginPage() {
 
     try {
       await login(data.email, data.password);
+
+      toast.success("Login Berhasil");
 
       navigate("/", { replace: true });
     } catch (error: any) {
@@ -112,7 +116,7 @@ export default function LoginPage() {
             )}
           </div>
 
-          <button
+          <Button
             type="submit"
             disabled={isLoading}
             className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 rounded-lg flex justify-center items-center disabled:opacity-70"
@@ -125,7 +129,7 @@ export default function LoginPage() {
             ) : (
               "Masuk"
             )}
-          </button>
+          </Button>
         </form>
 
         <p className="text-center mt-8 text-sm text-slate-600">

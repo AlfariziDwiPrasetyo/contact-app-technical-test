@@ -2,10 +2,12 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff, Lock, Mail, Loader2 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import type { RegisterFormValues } from "../../features/auth/auth";
 import { registerSchema } from "../../features/auth/auth.schema";
 import { useAuth } from "../../features/auth/auth.context";
+import { Button } from "../../components/ui/button";
+import { toast } from "sonner";
 
 export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -13,6 +15,7 @@ export default function RegisterPage() {
   const [authError, setAuthError] = useState<string | null>(null);
 
   const { register: registerUser } = useAuth();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -29,7 +32,11 @@ export default function RegisterPage() {
     try {
       await registerUser(data.email, data.password);
 
-      alert("Register berhasil");
+      toast.success("Register berhasil!", {
+        description: `Silahkan login dengan akun yang terdaftar`,
+      });
+
+      navigate("/login", { replace: true });
     } catch (error: any) {
       setAuthError(error.message || "Register error");
     } finally {
@@ -146,7 +153,7 @@ export default function RegisterPage() {
             )}
           </div>
 
-          <button
+          <Button
             type="submit"
             disabled={isLoading}
             className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 rounded-lg flex justify-center items-center disabled:opacity-70"
@@ -159,7 +166,7 @@ export default function RegisterPage() {
             ) : (
               "Masuk"
             )}
-          </button>
+          </Button>
         </form>
 
         <p className="text-center mt-8 text-sm text-slate-600">
