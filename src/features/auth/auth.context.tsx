@@ -7,9 +7,12 @@ const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [session, setSession] = useState<AuthSession | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setSession(authService.getSession());
+    const storedSession = authService.getSession();
+    setSession(storedSession);
+    setIsLoading(false);
   }, []);
 
   const login = async (email: string, password: string) => {
@@ -27,7 +30,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ session, login, register, logout }}>
+    <AuthContext.Provider
+      value={{ session, isLoading, login, register, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );

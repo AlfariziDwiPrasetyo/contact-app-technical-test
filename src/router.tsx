@@ -4,7 +4,8 @@ import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
 import ProtectedRoute from "./layouts/ProtectedRoute";
 import MainLayout from "./layouts/MainLayout";
-import HomePage from "./pages/main/homepage";
+import HomePage from "./pages/main/HomePage";
+import CreateContactPage from "./pages/main/CreateContactPage";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
           {
             path: "/",
             element: <HomePage />,
+          },
+          {
+            path: "/create",
+            element: <CreateContactPage />,
           },
         ],
       },

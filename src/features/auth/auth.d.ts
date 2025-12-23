@@ -16,9 +16,10 @@ export type AuthSession = {
   user: Omit<User, "password">;
 };
 
-type AuthContextType = {
+export interface AuthContextType {
   session: AuthSession | null;
+  isLoading: boolean;
   login: (email: string, password: string) => Promise<void>;
   register: (email: string, password: string) => Promise<void>;
   logout: () => void;
-};
+}
