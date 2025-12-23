@@ -66,7 +66,7 @@ export default function LoginPage() {
               <input
                 {...register("email")}
                 type="email"
-                placeholder="name@company.com"
+                placeholder="contoh@gmail.com"
                 className={`w-full pl-10 py-2 border rounded-lg outline-none transition ${
                   errors.email
                     ? "border-red-500"
